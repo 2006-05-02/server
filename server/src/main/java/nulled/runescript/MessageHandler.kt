@@ -7,6 +7,7 @@ import org.apollo.game.message.impl.ButtonMessage
 import org.apollo.game.message.impl.CloseInterfaceMessage
 import org.apollo.game.message.impl.NpcActionMessage
 import org.apollo.game.message.impl.ObjectActionMessage
+import org.apollo.game.message.impl.PlayerDesignMessage
 import org.apollo.game.model.entity.Npc
 import org.apollo.game.model.entity.Player
 import org.apollo.game.model.entity.obj.GameObject
@@ -76,6 +77,10 @@ object MessageHandler {
         } else if (message is ButtonMessage) {
             triggerEvent(player, ServerTriggerType.IF_BUTTON, GLOBAL)
             triggerEvent(player, ServerTriggerType.IF_BUTTON, message.widgetId.toString())
+            return true
+        } else if (message is PlayerDesignMessage) {
+            if (player.canDesign)
+                player.appearance = message.appearance
             return true
         }
         return false
