@@ -79,8 +79,7 @@ object MessageHandler {
             triggerEvent(player, ServerTriggerType.IF_BUTTON, message.widgetId.toString())
             return true
         } else if (message is PlayerDesignMessage) {
-            if (player.canDesign)
-                player.appearance = message.appearance
+            player.appearance = message.appearance
             return true
         }
         return false
