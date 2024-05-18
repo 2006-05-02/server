@@ -22,7 +22,6 @@ class tut_doors_and_gates(world: World, context: RuneScriptContext) : RuneScript
                 mesbox(player, "You need to talk to the 'Runescape Guide'|before you are allowed to proceed through this door.");
                 return@on FINISHED
             }
-            println("not finished")
             val outside = (player.position.x >= 3098)
             if (!outside) {
                 GenericDistancedAction.start(player, player.loc.position) {
