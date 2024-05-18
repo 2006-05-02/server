@@ -27,11 +27,10 @@ public final class EquipmentUpdater {
 	 * @throws Exception If an error occurs.
 	 */
 	public static void main(String[] args) throws Exception {
-		Preconditions.checkArgument(args.length == 1, "Usage:\njava -cp ... org.apollo.tools.EquipmentUpdater [release].");
-		String release = args[0];
+		String release = "377";
 
 		try (DataOutputStream os = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("data/equipment-" + release + ".dat")));
-			IndexedFileSystem fs = new IndexedFileSystem(Paths.get("data/fs/", release), true)) {
+			IndexedFileSystem fs = new IndexedFileSystem(Paths.get("data/fs", release), true)) {
 			ItemDefinitionDecoder decoder = new ItemDefinitionDecoder(fs);
 			decoder.run();
 
