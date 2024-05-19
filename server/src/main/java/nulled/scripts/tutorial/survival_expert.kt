@@ -26,7 +26,7 @@ class survival_expert(world: World, context: RuneScriptContext) : RuneScript(wor
     init {
         spawnNpc(survival_expert, x = 3104, y = 3095, facing = Direction.NORTH)
 
-        on(OPNPC1, survival_expert) { player: Player ->
+        on(OPNPC1, survival_expert) script@{ player: Player ->
             when (get(player, tutorial_progress)) {
                 runescape_guide_interacted_with_door -> survival_guide_start().invoke(player)
                 survival_guide_open_inventory -> survival_guide_look_at_menu().invoke(player)
@@ -38,30 +38,30 @@ class survival_expert(world: World, context: RuneScriptContext) : RuneScript(wor
                 survival_guide_burnt_shrimps, -> survival_guide_fishing_after_burning;*/
                 else -> survival_guide_start().invoke(player)
             }
-            FINISHED
+            return@script FINISHED
         }
 
-        on(TUTORIAL_CLICKSIDE, GLOBAL) { player: Player ->
+        on(TUTORIAL_CLICKSIDE, GLOBAL) script@{ player: Player ->
             if (get(player, tutorial_progress) == survival_guide_open_inventory) {
                 inv_add(player.inventory, tinderbox, 1, onlyIfMissing = true)
                 inv_add(player.inventory, bronze_axe, 1, onlyIfMissing = true)
                 set(player, tutorial_progress, survival_guide_cut_tree)
                 set_tutorial_progress().invoke(player)
             }
-            FINISHED
+            return@script FINISHED
         }
     }
 
-    fun survival_guide_fire(): (Player) -> Int = { player: Player ->
-        FINISHED
+    fun survival_guide_fire(): (Player) -> Int = script@{ player: Player ->
+        return@script FINISHED
     }
 
-    fun survival_guide_look_at_menu(): (Player) -> Int = { player: Player ->
+    fun survival_guide_look_at_menu(): (Player) -> Int = script@{ player: Player ->
         chatnpc(player, chat_default, "Hello again. You should take a look at that menu before we continue.")
-        FINISHED
+        return@script FINISHED
     }
 
-    fun survival_guide_start(): (Player) -> Int = { player: Player ->
+    fun survival_guide_start(): (Player) -> Int = script@{ player: Player ->
         chatnpc(player, chat_default, "Hello there newcomer. My name is Brynna. My job is|to teach you a few survival tips and tricks. First off|we're going to start with the most basic survival skill of|all; making a fire.") {
             doubleobjbox(player, tinderbox, bronze_axe, 150, 0, "The Survival Guide gives you a |@blu@Tinderbox@bla@ |and a |@blu@Bronze Hatchet!") {
                 set(player, tutorial_progress, survival_guide_open_inventory)
@@ -69,6 +69,6 @@ class survival_expert(world: World, context: RuneScriptContext) : RuneScript(wor
                 if_close().invoke(player)
             }
         }
-        FINISHED
+        return@script FINISHED
     }
 }

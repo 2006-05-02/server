@@ -1,6 +1,7 @@
 package org.apollo.game.model.entity.obj;
 
 import com.google.common.base.MoreObjects;
+import nulled.runescript.data.NextLocStage;
 import org.apollo.cache.def.ObjectDefinition;
 import org.apollo.game.model.Direction;
 import org.apollo.game.model.Position;
@@ -140,4 +141,12 @@ public abstract class GameObject extends Entity implements GroupableEntity {
 	 * @return {@code true} if the Player can see this GameObject, {@code false} if not.
 	 */
 	public abstract boolean viewableBy(Player player, World world);
+
+	public String getRuneScriptName() {
+		return "loc_" + getDefinition().getId();
+	}
+
+	public int getNextStage() {
+		return NextLocStage.INSTANCE.get(getRuneScriptName());
+	}
 }

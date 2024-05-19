@@ -128,6 +128,8 @@ public final class World {
 	 */
 	private PluginManager pluginManager;
 
+	public int map_clock = 0;
+
 
 	/**
 	 * The release number (i.e. version) of this world.
@@ -267,6 +269,7 @@ public final class World {
 		unregisterNpcs();
 		registerNpcs();
 		scheduler.pulse();
+		map_clock += 1;
 	}
 
 	/**

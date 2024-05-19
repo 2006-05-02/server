@@ -35,66 +35,78 @@ import org.apollo.game.message.impl.HintIconMessage
 import org.apollo.game.model.Position
 import org.apollo.game.model.World
 import org.apollo.game.model.entity.Player
+import org.apollo.game.model.entity.Skill
 import org.apollo.game.plugin.RuneScriptContext
 import org.apollo.plugins.spawn.npcs.RunescapeGuide
 import org.apollo.plugins.spawn.npcs.SurvivalExpert
 
 class tutorial(world: World, context: RuneScriptContext) : RuneScript(world, context) {
     init {
-        on(ServerTriggerType.IF_BUTTON, player_kit_accept) { player: Player ->
+        on(ServerTriggerType.IF_BUTTON, player_kit_accept) script@{ player: Player ->
             player.interfaceSet.canClose = true
             if_close().invoke(player)
-            FINISHED
+            return@script FINISHED
         }
-        on(ServerTriggerType.IF_CLOSE, player_kit) { player: Player ->
+        on(ServerTriggerType.IF_CLOSE, player_kit) script@{ player: Player ->
             set(player, tutorial_progress, runescape_guide_designed_character)
             allowdesign(player, false)
-            FINISHED
+            return@script FINISHED
         }
     }
     companion object {
-        fun tutorial_step_getting_started() : (Player) -> Int = { player: Player ->
+        fun tutorial_step_getting_started() : (Player) -> Int = script@{ player: Player ->
             set_hint_runescape_guide().invoke(player)
             tutorialstep(player, "Getting started", "To start the tutorial use your left mouse-button to click on the|'RuneScape Guide' in this room. He is indicated by a flashing|yellow arrow above his head. If you can't see him, use your|keyboard's arrow keys to rotate the view.")
-            FINISHED
+            return@script FINISHED
         }
 
-        fun tutorial_step_interact_with_scenery() : (Player) -> Int = { player: Player ->
+        fun tutorial_step_interact_with_scenery() : (Player) -> Int = script@{ player: Player ->
             hint_coord(player, HintIconMessage.Type.WEST, Position(3098, 3107), 128)
             tutorialstep(player, "Interacting with scenery", "You can interact with many items of scenery by simply clicking|on them. Right clicking will also give more options. Try it|with the things in this room, then click on the door indicated|with the yellow arrow to go through to the next instructor.")
-            FINISHED
+            return@script FINISHED
         }
 
-        fun tutorial_step_moving_around() : (Player) -> Int = { player: Player ->
+        fun tutorial_step_moving_around() : (Player) -> Int = script@{ player: Player ->
             tutorialstep(player, "Moving around", "Follow the path to find the next instructor. Clicking on the|ground will walk you to that point. Talk to the survival expert by|the pond to continue the tutorial. Remember you can rotate|the view by pressing the arrow keys.")
             set_hint_icon_survival_guide().invoke(player)
-            FINISHED
+            return@script FINISHED
         }
 
-        fun tutorial_step_view_inventory() : (Player) -> Int = { player: Player ->
+        fun tutorial_step_view_inventory() : (Player) -> Int = script@{ player: Player ->
             tutorialstep(player, "Viewing the items that you were given.", "Click on the flashing backpack icon to the right side of the|main window to view your inventory. Your inventory is a list|of everything you have in your backpack.")
             //inv_transmit(inv, inventory_inv)
             if_settab(player, inventory, tab_inventory)
             if_settabflash(player, tab_inventory)
-            FINISHED
+            return@script FINISHED
         }
 
-        fun tutorial_step_cut_tree() : (Player) -> Int = { player: Player ->
+        fun tutorial_step_cut_tree() : (Player) -> Int = script@{ player: Player ->
             hint_coord(player, HintIconMessage.Type.WEST, Position(3100, 3095), 175);
             tutorialstep(player, "Cut down a tree", "You can click on the backpack icon at any time to view|the items you currently have in your inventory. You will see that you now have an axe in your inventory.|Use this to get some logs by clicking on the indicated tree.");
-            FINISHED
+            return@script FINISHED
         }
 
-        private fun set_hint_runescape_guide() : (Player) -> Int = { player: Player ->
+        fun tutorial_please_wait_woodcutting() : (Player) -> Int = script@{ player: Player ->
+            val genderText = if (player.appearance.isMale) "he" else "she"
+            tutorialstep(player, "Please wait...", "|Your character is now attempting to cut down the tree. Sit back|for a moment whilst $genderText does all the hard work.");
+            return@script FINISHED
+        }
+
+        fun tutorial_step_build_fire(): (Player) -> Int =  script@{ player: Player ->
+            tutorialstep(player, "Building a fire", "Well done - you managed to cut some logs from the tree!|Next, use the tinderbox in your inventory to light the logs.|a) First click on the tinderbox to use it.|b) Then click on the logs in your inventory to light them.");
+            return@script FINISHED
+        }
+
+        private fun set_hint_runescape_guide() : (Player) -> Int = script@{ player: Player ->
             if (get(player, tutorial_progress) < runescape_guide_interact_with_scenery) {
                 hint_npc(RunescapeGuide.INSTANCE.uid).invoke(player)
             }
-            FINISHED
+            return@script FINISHED
         }
 
-        private fun set_hint_icon_survival_guide() : (Player) -> Int = { player: Player ->
+        private fun set_hint_icon_survival_guide() : (Player) -> Int = script@{ player: Player ->
             hint_npc(SurvivalExpert.INSTANCE.uid).invoke(player)
-            FINISHED
+            return@script FINISHED
         }
 
         fun set_tutorial_progress() : (Player) -> Int = { player: Player ->
@@ -104,12 +116,12 @@ class tutorial(world: World, context: RuneScriptContext) : RuneScript(world, con
                 runescape_guide_interact_with_scenery -> tutorial_step_interact_with_scenery().invoke(player)
                 survival_guide_open_inventory -> tutorial_step_view_inventory().invoke(player)
                 survival_guide_cut_tree -> tutorial_step_cut_tree().invoke(player)
-                //survival_guide_build_fire -> tutorial_step_build_fire;
+                survival_guide_build_fire -> tutorial_step_build_fire().invoke(player)
                 else -> throw RuneScriptException("invalid tutorial progress")
             }
         }
 
-        fun start_tutorial() : (Player) -> Int = { player: Player ->
+        fun start_tutorial() : (Player) -> Int = script@{ player: Player ->
             // logging into a new character might show old tabs so we're going to clear them
             if_settab(player, null, tab_combat_options);
             if_settab(player, null, tab_skills);
@@ -132,14 +144,20 @@ class tutorial(world: World, context: RuneScriptContext) : RuneScript(world, con
                 if_openmainmodal(player, player_kit)
                 allowdesign(player, true)
             }
-            FINISHED
+            return@script FINISHED
         }
 
-        fun tutorial_set_active_tabs() : (Player) -> Int =  { player: Player ->
+        fun tutorial_set_active_tabs() : (Player) -> Int =  script@{ player: Player ->
             if (get(player, tutorial_progress) > runescape_guide_start) {
                 if_settab(player, options, tab_game_options);
             }
-            FINISHED
+            return@script FINISHED
+        }
+
+        fun tutorial_give_xp(skill: Int, xp: Double) : (Player) -> Unit = script@{ player: Player ->
+            if (player.skillSet.getMaximumLevel(skill) > 3)
+                return@script
+            givexp(player, skill, xp)
         }
     }
 }

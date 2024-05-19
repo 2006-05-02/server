@@ -30,6 +30,7 @@ import nulled.runescript.data.Interface.message5_com2
 import nulled.runescript.data.Interface.message5_com3
 import nulled.runescript.data.Interface.message5_com4
 import org.apollo.game.message.impl.*
+import org.apollo.game.model.Animation
 import org.apollo.game.model.Position
 import org.apollo.game.model.World
 import org.apollo.game.model.entity.Player
@@ -37,6 +38,7 @@ import org.apollo.game.model.entity.attr.NumericalAttribute
 import org.apollo.game.model.inter.dialogue.DialogueListener
 import org.apollo.game.model.inv.Inventory
 import org.apollo.game.plugin.RuneScriptContext
+import org.apollo.game.plugin.api.replaceObject
 import org.apollo.plugins.api.ChatEmotes
 import org.apollo.plugins.api.dialogue.ChatNpcAction
 import kotlin.script.experimental.annotations.KotlinScript
@@ -46,6 +48,12 @@ import kotlin.script.experimental.annotations.KotlinScript
     compilationConfiguration = RuneScriptDefinition::class
 )
 abstract class RuneScript(var world: World, var context: RuneScriptContext) {
+
+    fun on(triggerType: ServerTriggerType, vararg subjects: String, handler: (Player) -> Int?) {
+        for (subject in subjects) {
+            on(triggerType, subject, handler)
+        }
+    }
 
     fun on(triggerType: ServerTriggerType, subject: String, handler: (Player) -> Int?) {
         println("register $triggerType $subject")
@@ -232,7 +240,7 @@ abstract class RuneScript(var world: World, var context: RuneScriptContext) {
             player.teleport(destination)
         }
 
-        fun sound_synth(id: Int, loops: Int, delay: Int): (Player) -> Unit = { player ->
+        fun sound_synth(player: Player, id: Int, loops: Int, delay: Int) {
             player.send(PlaySoundMessage(id, loops, delay))
         }
 
@@ -323,6 +331,29 @@ abstract class RuneScript(var world: World, var context: RuneScriptContext) {
 
         fun hint_stop(player: Player) {
             player.send(PositionHintIconMessage.reset())
+        }
+
+        fun inv_freespace(inventory: Inventory) : Int {
+            return inventory.freeSlots()
+        }
+
+        fun anim(player: Player, id: Int, delay: Int) {
+            player.playAnimation(Animation(id, delay))
+        }
+
+        fun inv_total(itemID: Int, vararg inventories: Inventory) : Int {
+            var count = 0
+            for (inventory in inventories)
+                count += inventory.items.filterNotNull().count { it.id == itemID }
+            return count
+        }
+
+        fun loc_change(player: Player, newObjectID: Int, delay: Int) {
+            player.world.replaceObject(player.loc, newObjectID, delay)
+        }
+
+        fun givexp(player: Player, skill: Int, xp: Double) {
+            player.skillSet.addExperience(skill, xp)
         }
 
         fun get(player: Player, attribute: String) : Int {

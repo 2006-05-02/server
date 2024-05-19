@@ -28,7 +28,7 @@ class runescape_guide(world: World, context: RuneScriptContext) : RuneScript(wor
         }
     }
 
-    fun runescape_guide_welcome(): (Player) -> Int = { player: Player ->
+    fun runescape_guide_welcome(): (Player) -> Int = script@{ player: Player ->
         chatnpc(player, chat_default, "Greetings! I see you are a new arrival to this land. My|job is to welcome all the new visitors. So welcome!") {
             chatnpc(player, chat_default, "You have already learnt the first thing needed to|succeed in this world... Talking to other people!") {
                 chatnpc(player, chat_default, "You will find many inhabitants of this world have useful|things to say to you. By clicking on them with your|mouse you can talk to them.") {
@@ -42,11 +42,11 @@ class runescape_guide(world: World, context: RuneScriptContext) : RuneScript(wor
                 }
             }
         }
-        FINISHED
+        return@script FINISHED
     }
 
-    fun runescape_guide_return(): (Player) -> Int = { player: Player ->
+    fun runescape_guide_return(): (Player) -> Int = script@{ player: Player ->
         runescape_guide_welcome().invoke(player)
-        FINISHED
+        return@script FINISHED
     }
 }

@@ -11,7 +11,7 @@ import org.apollo.game.plugin.RuneScriptContext
 
 class open_and_close_doors(world: World, context: RuneScriptContext) : RuneScript(world, context) {
     companion object {
-        fun open_and_close_door(replacement: GameObject?, entering: Boolean, play_locked_synth: Boolean) : (Player) -> Int = { player: Player ->
+        fun open_and_close_door(replacement: GameObject?, entering: Boolean, play_locked_synth: Boolean) : (Player) -> Int = script@{ player: Player ->
             var x: Int
             var y: Int
 
@@ -25,8 +25,8 @@ class open_and_close_doors(world: World, context: RuneScriptContext) : RuneScrip
             }
             p_teleport(coord).invoke(player)
 
-            sound_synth(Sounds.door_open, 0, 0).invoke(player)
-            FINISHED
+            sound_synth(player, Sounds.door_open, 0, 0)
+            return@script FINISHED
         }
     }
 }

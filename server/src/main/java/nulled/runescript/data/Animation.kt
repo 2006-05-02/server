@@ -79,4 +79,5 @@ object Animation {
     const val chat_madheadbobshort = 8542
     const val chat_madheadboblong = 8543
     const val chat_madnoheadbob = 8544
+    const val human_woodcutting_bronze_axe = 879
 }

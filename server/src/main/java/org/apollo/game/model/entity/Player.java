@@ -52,6 +52,7 @@ public final class Player extends Mob {
 	//RuneScript interactions
 	public GameObject loc = null;
 	public Npc npc = null;
+	public int action_delay = 0;
 
 	/**
 	 * The default viewing distance, in tiles.

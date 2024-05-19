@@ -17,7 +17,7 @@ class global(world: World, context: RuneScriptContext) : RuneScript(world, conte
     init {
         AttributeMap.define("tutorial_progress", AttributeDefinition.forInt(0, AttributePersistence.PERSISTENT))
 
-        on(LOGIN, GLOBAL) { player: Player ->
+        on(LOGIN, GLOBAL) script@{ player: Player ->
             mes(player, "Welcome to RuneScape.");
             mes(player, "The server is currently in development mode.");
             // cam_reset
@@ -40,7 +40,7 @@ class global(world: World, context: RuneScriptContext) : RuneScript(world, conte
                 //player.runScript(Script(start_tutorial()))
                 start_tutorial().invoke(player)
             }
-            FINISHED
+            return@script FINISHED
         }
     }
 }

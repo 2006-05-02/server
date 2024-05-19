@@ -15,11 +15,11 @@ class music(world: World, context: RuneScriptContext) : RuneScript(world, contex
         NewbieMelody
     )
     init {
-        on(ServerTriggerType.LOGIN, "_") { player: Player ->
+        on(ServerTriggerType.LOGIN, "_") script@{ player: Player ->
             val playerPosition = player.position
             val regionPosition = Position(playerPosition.regionCoordinates.x, playerPosition.regionCoordinates.y)
             findAndPlaySong(player, regionPosition)
-            return@on FINISHED
+            return@script FINISHED
         }
     }
 

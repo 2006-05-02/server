@@ -5,11 +5,11 @@ import org.apollo.game.model.Position
 import org.apollo.game.model.entity.Player
 import org.apollo.plugins.api.dialogue.ChatNpcAction.ChatNpcEvent
 
-class GenericDistancedAction(val player: Player, val position: Position, val action: (Player) -> Unit) :
-    DistancedAction<Player>(0, true, player, position, 1) {
+class GenericLocDistancedAction(val player: Player, val position: Position, val action: (Player) -> Unit) :
+    DistancedAction<Player>(0, true, player, position, player.loc.width) {
     companion object {
         fun start(player: Player, position: Position, action: (Player) -> Unit) {
-            player.startAction(GenericDistancedAction(player, position, action))
+            player.startAction(GenericLocDistancedAction(player, position, action))
         }
     }
 

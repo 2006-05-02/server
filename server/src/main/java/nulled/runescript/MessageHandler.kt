@@ -3,6 +3,7 @@ package nulled.runescript
 import lostcity.engine.script.ServerTriggerType
 import nulled.runescript.EventRegistry.triggerEvent
 import nulled.runescript.RuneScript.Companion.GLOBAL
+import org.apollo.game.message.handler.EquipItemHandler
 import org.apollo.game.message.impl.*
 import org.apollo.game.model.entity.Npc
 import org.apollo.game.model.entity.Player
@@ -81,7 +82,32 @@ object MessageHandler {
             triggerEvent(player, ServerTriggerType.TUTORIAL_CLICKSIDE, GLOBAL)
             triggerEvent(player, ServerTriggerType.TUTORIAL_CLICKSIDE, message.tab.toString())
             return false
-        }else if (message is WalkMessage) {
+        } else if (message is ItemOptionMessage) {
+            when (message.option) {
+                1 -> {
+                    triggerEvent(player, ServerTriggerType.INV_BUTTON1, GLOBAL)
+                    triggerEvent(player, ServerTriggerType.INV_BUTTON1, message.slot.toString())
+                }
+                2 -> {
+                    triggerEvent(player, ServerTriggerType.INV_BUTTON2, GLOBAL)
+                    triggerEvent(player, ServerTriggerType.INV_BUTTON2, message.slot.toString())
+                }
+                3 -> {
+                    triggerEvent(player, ServerTriggerType.INV_BUTTON3, GLOBAL)
+                    triggerEvent(player, ServerTriggerType.INV_BUTTON3, message.slot.toString())
+                }
+                4 -> {
+                    triggerEvent(player, ServerTriggerType.INV_BUTTON4, GLOBAL)
+                    triggerEvent(player, ServerTriggerType.INV_BUTTON4, message.slot.toString())
+                }
+                5 -> {
+                    triggerEvent(player, ServerTriggerType.INV_BUTTON5, GLOBAL)
+                    triggerEvent(player, ServerTriggerType.INV_BUTTON5, message.slot.toString())
+                }
+                else -> return false
+            }
+            return true
+        } else if (message is WalkMessage) {
             println("walk: ${message.steps[0].x}:${message.steps[0].y}")
             return false
         }
