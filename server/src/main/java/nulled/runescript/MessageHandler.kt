@@ -3,11 +3,7 @@ package nulled.runescript
 import lostcity.engine.script.ServerTriggerType
 import nulled.runescript.EventRegistry.triggerEvent
 import nulled.runescript.RuneScript.Companion.GLOBAL
-import org.apollo.game.message.impl.ButtonMessage
-import org.apollo.game.message.impl.CloseInterfaceMessage
-import org.apollo.game.message.impl.NpcActionMessage
-import org.apollo.game.message.impl.ObjectActionMessage
-import org.apollo.game.message.impl.PlayerDesignMessage
+import org.apollo.game.message.impl.*
 import org.apollo.game.model.entity.Npc
 import org.apollo.game.model.entity.Player
 import org.apollo.game.model.entity.obj.GameObject
@@ -81,6 +77,13 @@ object MessageHandler {
         } else if (message is PlayerDesignMessage) {
             player.appearance = message.appearance
             return true
+        } else if (message is FlashingTabClickedMessage) {
+            triggerEvent(player, ServerTriggerType.TUTORIAL_CLICKSIDE, GLOBAL)
+            triggerEvent(player, ServerTriggerType.TUTORIAL_CLICKSIDE, message.tab.toString())
+            return false
+        }else if (message is WalkMessage) {
+            println("walk: ${message.steps[0].x}:${message.steps[0].y}")
+            return false
         }
         return false
     }

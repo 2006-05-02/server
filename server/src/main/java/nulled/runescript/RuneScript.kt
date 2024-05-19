@@ -1,6 +1,14 @@
 package nulled.runescript
 
+import CloseDialogueListener
 import lostcity.engine.script.ServerTriggerType
+import nulled.runescript.data.Interface.doubleobjbox
+import nulled.runescript.data.Interface.doubleobjbox_com_0
+import nulled.runescript.data.Interface.doubleobjbox_com_1
+import nulled.runescript.data.Interface.doubleobjbox_com_2
+import nulled.runescript.data.Interface.doubleobjbox_com_4
+import nulled.runescript.data.Interface.doubleobjbox_com_5
+import nulled.runescript.data.Interface.doubleobjbox_com_6
 import nulled.runescript.data.Interface.message1
 import nulled.runescript.data.Interface.message1_com0
 import nulled.runescript.data.Interface.message2
@@ -27,6 +35,7 @@ import org.apollo.game.model.World
 import org.apollo.game.model.entity.Player
 import org.apollo.game.model.entity.attr.NumericalAttribute
 import org.apollo.game.model.inter.dialogue.DialogueListener
+import org.apollo.game.model.inv.Inventory
 import org.apollo.game.plugin.RuneScriptContext
 import org.apollo.plugins.api.ChatEmotes
 import org.apollo.plugins.api.dialogue.ChatNpcAction
@@ -127,6 +136,8 @@ abstract class RuneScript(var world: World, var context: RuneScriptContext) {
                         continueAction.invoke(player)
                     }
                 }
+            } else {
+                listener = CloseDialogueListener
             }
             ChatNpcAction.start(player, player.npc.position) {
                 val lines = text.split("|").size
@@ -142,6 +153,13 @@ abstract class RuneScript(var world: World, var context: RuneScriptContext) {
                         val l2 = text.split("|")[1]
                         val l3 = text.split("|")[2]
                         player.sendNpc3Dialogue(player.npc, ChatEmotes.of(emote), l1, l2, l3, listener)
+                    }
+                    4 -> {
+                        val l1 = text.split("|")[0]
+                        val l2 = text.split("|")[1]
+                        val l3 = text.split("|")[2]
+                        val l4 = text.split("|")[3]
+                        player.sendNpc4Dialogue(player.npc, ChatEmotes.of(emote), l1, l2, l3, l4, listener)
                     }
                 }
             }
@@ -224,6 +242,87 @@ abstract class RuneScript(var world: World, var context: RuneScriptContext) {
 
         fun allowdesign(player: Player, allowed: Boolean) {
             player.allowdesign = allowed
+        }
+
+        fun if_setobject(player: Player, widget: Int, itemID: Int, scale: Int) {
+            player.send(SetWidgetItemModelMessage(widget, itemID, scale))
+        }
+
+        fun doubleobjbox(player: Player, item1ID : Int, item2ID: Int, scale: Int, page: Int, text: String, continueAction: ((Player) -> Unit)? = null) {
+            split_init(text, -1, -1, -1)
+            var listener: DialogueListener?
+            if (continueAction != null) {
+                listener = object : DialogueListener {
+                    override fun interfaceClosed() {
+
+                    }
+
+                    override fun buttonClicked(button: Int): Boolean {
+                        return true
+                    }
+
+                    override fun continued(player: Player) {
+                        continueAction.invoke(player)
+                    }
+                }
+            } else {
+                listener = CloseDialogueListener
+            }
+            ChatNpcAction.start(player, player.npc.position) {
+                val lines = text.split("|").size
+                when (lines) {
+                    1 -> {
+                        if_setobject(player, doubleobjbox_com_0, item1ID, scale);
+                        if_settext(player, doubleobjbox_com_1, split_get(page, 0));
+                        if_settext(player, doubleobjbox_com_2, "");
+                        if_settext(player, doubleobjbox_com_4, "");
+                        if_settext(player, doubleobjbox_com_5, "");
+                        if_setobject(player, doubleobjbox_com_6, item2ID, scale);
+                    }
+                    2 -> {
+                        if_setobject(player, doubleobjbox_com_0, item1ID, scale);
+                        if_settext(player, doubleobjbox_com_1, split_get(page, 0));
+                        if_settext(player, doubleobjbox_com_2, split_get(page, 1));
+                        if_settext(player, doubleobjbox_com_4, "");
+                        if_settext(player, doubleobjbox_com_5, "");
+                        if_setobject(player, doubleobjbox_com_6, item2ID, scale);
+                    }
+                    3 -> {
+                        if_setobject(player, doubleobjbox_com_0, item1ID, scale);
+                        if_settext(player, doubleobjbox_com_1, split_get(page, 0));
+                        if_settext(player, doubleobjbox_com_2, split_get(page, 1));
+                        if_settext(player, doubleobjbox_com_4, split_get(page, 2));
+                        if_settext(player, doubleobjbox_com_5, "");
+                        if_setobject(player, doubleobjbox_com_6, item2ID, scale);
+                    }
+                    4 -> {
+                        if_setobject(player, doubleobjbox_com_0, item1ID, scale);
+                        if_settext(player, doubleobjbox_com_1, split_get(page, 1));
+                        if_settext(player, doubleobjbox_com_2, split_get(page, 0));
+                        if_settext(player, doubleobjbox_com_4, split_get(page, 2));
+                        if_settext(player, doubleobjbox_com_5, split_get(page, 3));
+                        if_setobject(player, doubleobjbox_com_6, item2ID, scale);
+                    }
+                }
+                player.interfaceSet.openDialogue(listener, doubleobjbox)
+            }
+        }
+
+        fun if_settabflash(player: Player, widget: Int) {
+            player.send(FlashTabInterfaceMessage(widget))
+        }
+
+        fun inv_add(inventory: Inventory, itemID: Int, count: Int, onlyIfMissing: Boolean = false) {
+            if (onlyIfMissing) {
+                if (!inventory.contains(itemID))
+                    inventory.add(itemID, count)
+            } else {
+                inventory.add(itemID, count)
+            }
+        }
+
+        fun hint_stop(player: Player) {
+            player.send(PositionHintIconMessage.reset())
         }
 
         fun get(player: Player, attribute: String) : Int {

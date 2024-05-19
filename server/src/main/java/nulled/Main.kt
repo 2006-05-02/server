@@ -104,9 +104,9 @@ object Main {
      * Register any single-instance npc here for easy access later
      */
     fun registerSingleInstanceNpc(name: String, npc: Npc) {
-        when (name) {
+        when (name.toLowerCase().replace(" ", "_")) {
             TutorialConstants.runescape_guide -> RunescapeGuide.INSTANCE = npc
-            "survival_expert" -> SurvivalExpert.INSTANCE = npc
+            TutorialConstants.survival_expert -> SurvivalExpert.INSTANCE = npc
         }
     }
 

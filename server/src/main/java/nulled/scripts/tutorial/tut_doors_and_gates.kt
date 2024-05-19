@@ -25,9 +25,10 @@ class tut_doors_and_gates(world: World, context: RuneScriptContext) : RuneScript
             val outside = (player.position.x >= 3098)
             if (!outside) {
                 GenericDistancedAction.start(player, player.loc.position) {
-                    player.runScript(Script(open_and_close_door(null, false, false)))
+                    open_and_close_door(null, false, false).invoke(player)
                     if (get(player, tutorial_progress) == runescape_guide_interact_with_scenery) {
                         set(player, tutorial_progress, runescape_guide_interacted_with_door)
+                        hint_stop(player)
                         tutorial_step_moving_around().invoke(player)
                     }
                 }

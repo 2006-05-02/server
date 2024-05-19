@@ -37,6 +37,8 @@ import org.apollo.util.security.PlayerCredentials;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static nulled.runescript.data.Interface.*;
+
 /**
  * A {@link Mob} that a user is controlling.
  *
@@ -1010,30 +1012,41 @@ public final class Player extends Mob {
 	public ArrayList<ChatNpcAction> pendingChats = new ArrayList<>();
 
 	public void sendNpcDialogue(Npc npc, ChatEmotes emote, String line1, DialogueListener listener) {
-		send(new SetWidgetModelAnimationMessage(4883, emote.getAnimationId()));
-		send(new SetWidgetTextMessage(4884, npc.getDefinition().getName()));
-		send(new SetWidgetTextMessage(4885, line1));
-		send(new SetWidgetNpcModelMessage(4883, npc.getId()));
-		getInterfaceSet().openDialogue(listener, 4882);
+		send(new SetWidgetModelAnimationMessage(npcchat1_com_0, emote.getAnimationId()));
+		send(new SetWidgetTextMessage(npcchat1_com_1, npc.getDefinition().getName()));
+		send(new SetWidgetTextMessage(npcchat1_com_2, line1));
+		send(new SetWidgetNpcModelMessage(npcchat1_com_0, npc.getId()));
+		getInterfaceSet().openDialogue(listener, npcchat1);
 	}
 
 	public void sendNpc2Dialogue(Npc npc, ChatEmotes emote, String line1, String line2, DialogueListener listener) {
-		send(new SetWidgetModelAnimationMessage(4888, emote.getAnimationId()));
-		send(new SetWidgetTextMessage(4889, npc.getDefinition().getName()));
-		send(new SetWidgetTextMessage(4890, line1));
-		send(new SetWidgetTextMessage(4891, line2));
-		send(new SetWidgetNpcModelMessage(4888, npc.getId()));
-		getInterfaceSet().openDialogue(listener, 4887);
+		send(new SetWidgetModelAnimationMessage(npcchat2_com_0, emote.getAnimationId()));
+		send(new SetWidgetTextMessage(npcchat2_com_1, npc.getDefinition().getName()));
+		send(new SetWidgetTextMessage(npcchat2_com_2, line1));
+		send(new SetWidgetTextMessage(npcchat2_com_3, line2));
+		send(new SetWidgetNpcModelMessage(npcchat2_com_0, npc.getId()));
+		getInterfaceSet().openDialogue(listener, npcchat2);
 	}
 
 	public void sendNpc3Dialogue(Npc npc, ChatEmotes emote, String line1, String line2, String line3, DialogueListener listener) {
-		send(new SetWidgetModelAnimationMessage(4894, emote.getAnimationId()));
-		send(new SetWidgetTextMessage(4895, npc.getDefinition().getName()));
-		send(new SetWidgetTextMessage(4896, line1));
-		send(new SetWidgetTextMessage(4897, line2));
-		send(new SetWidgetTextMessage(4898, line3));
-		send(new SetWidgetNpcModelMessage(4894, npc.getId()));
-		getInterfaceSet().openDialogue(listener, 4893);
+		send(new SetWidgetModelAnimationMessage(npcchat3_com_0, emote.getAnimationId()));
+		send(new SetWidgetTextMessage(npcchat3_com_1, npc.getDefinition().getName()));
+		send(new SetWidgetTextMessage(npcchat3_com_2, line1));
+		send(new SetWidgetTextMessage(npcchat3_com_3, line2));
+		send(new SetWidgetTextMessage(npcchat3_com_4, line3));
+		send(new SetWidgetNpcModelMessage(npcchat3_com_0, npc.getId()));
+		getInterfaceSet().openDialogue(listener, npcchat3);
+	}
+
+	public void sendNpc4Dialogue(Npc npc, ChatEmotes emote, String line1, String line2, String line3, String line4, DialogueListener listener) {
+		send(new SetWidgetModelAnimationMessage(npcchat4_com_0, emote.getAnimationId()));
+		send(new SetWidgetTextMessage(npcchat4_com_1, npc.getDefinition().getName()));
+		send(new SetWidgetTextMessage(npcchat4_com_2, line1));
+		send(new SetWidgetTextMessage(npcchat4_com_3, line2));
+		send(new SetWidgetTextMessage(npcchat4_com_4, line3));
+		send(new SetWidgetTextMessage(npcchat4_com_5, line4));
+		send(new SetWidgetNpcModelMessage(npcchat4_com_0, npc.getId()));
+		getInterfaceSet().openDialogue(listener, npcchat4);
 	}
 
 	public int[] overlaySide = new int[13];

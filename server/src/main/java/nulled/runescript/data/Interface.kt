@@ -3,6 +3,8 @@ package nulled.runescript.data
 object Interface {
     const val options = 904
     const val logout = 2449
+    const val inventory = 3213
+    const val inventory_inv = 3214
     const val player_kit = 3559
     const val player_kit_accept = 3651
     const val tutorial_text = 6179
@@ -36,4 +38,38 @@ object Interface {
     const val message5_com3 = 378
     const val message5_com4 = 379
     const val message5_com5 = 380
+    const val doubleobjbox = 4950
+    const val doubleobjbox_com_0 = 4951
+    const val doubleobjbox_com_1 = 4952
+    const val doubleobjbox_com_2 = 4953
+    const val doubleobjbox_com_3 = 4954
+    const val doubleobjbox_com_4 = 4955
+    const val doubleobjbox_com_5 = 4956
+    const val doubleobjbox_com_6 = 4957
+    const val npcchat1 = 4882
+    const val npcchat1_com_0 = 4883
+    const val npcchat1_com_1 = 4884
+    const val npcchat1_com_2 = 4885
+    const val npcchat1_com_3 = 4886
+    const val npcchat2 = 4887
+    const val npcchat2_com_0 = 4888
+    const val npcchat2_com_1 = 4889
+    const val npcchat2_com_2 = 4890
+    const val npcchat2_com_3 = 4891
+    const val npcchat2_com_4 = 4892
+    const val npcchat3 = 4893
+    const val npcchat3_com_0 = 4894
+    const val npcchat3_com_1 = 4895
+    const val npcchat3_com_2 = 4896
+    const val npcchat3_com_3 = 4897
+    const val npcchat3_com_4 = 4898
+    const val npcchat3_com_5 = 4899
+    const val npcchat4 = 4900
+    const val npcchat4_com_0 = 4901
+    const val npcchat4_com_1 = 4902
+    const val npcchat4_com_2 = 4903
+    const val npcchat4_com_3 = 4904
+    const val npcchat4_com_4 = 4905
+    const val npcchat4_com_5 = 4906
+    const val npcchat4_com_6 = 4907
 }

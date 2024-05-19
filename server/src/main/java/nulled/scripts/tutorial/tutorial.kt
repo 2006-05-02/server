@@ -4,6 +4,8 @@ import lostcity.engine.script.Script.Companion.FINISHED
 import lostcity.engine.script.ServerTriggerType
 import nulled.runescript.RuneScript
 import nulled.runescript.RuneScriptException
+import nulled.runescript.data.Interface.inventory
+import nulled.runescript.data.Interface.inventory_inv
 import nulled.runescript.data.Interface.logout
 import nulled.runescript.data.Interface.options
 import nulled.runescript.data.Interface.player_kit
@@ -24,6 +26,9 @@ import nulled.runescript.data.Tab.tab_wornitems
 import nulled.scripts.tutorial.data.TutorialConstants.runescape_guide_designed_character
 import nulled.scripts.tutorial.data.TutorialConstants.runescape_guide_interact_with_scenery
 import nulled.scripts.tutorial.data.TutorialConstants.runescape_guide_start
+import nulled.scripts.tutorial.data.TutorialConstants.survival_guide_build_fire
+import nulled.scripts.tutorial.data.TutorialConstants.survival_guide_cut_tree
+import nulled.scripts.tutorial.data.TutorialConstants.survival_guide_open_inventory
 import nulled.scripts.tutorial.data.TutorialConstants.tutorial_progress
 import nulled.scripts.tutorial.tutorial_steps.Companion.tutorialstep
 import org.apollo.game.message.impl.HintIconMessage
@@ -66,6 +71,20 @@ class tutorial(world: World, context: RuneScriptContext) : RuneScript(world, con
             FINISHED
         }
 
+        fun tutorial_step_view_inventory() : (Player) -> Int = { player: Player ->
+            tutorialstep(player, "Viewing the items that you were given.", "Click on the flashing backpack icon to the right side of the|main window to view your inventory. Your inventory is a list|of everything you have in your backpack.")
+            //inv_transmit(inv, inventory_inv)
+            if_settab(player, inventory, tab_inventory)
+            if_settabflash(player, tab_inventory)
+            FINISHED
+        }
+
+        fun tutorial_step_cut_tree() : (Player) -> Int = { player: Player ->
+            hint_coord(player, HintIconMessage.Type.WEST, Position(3100, 3095), 175);
+            tutorialstep(player, "Cut down a tree", "You can click on the backpack icon at any time to view|the items you currently have in your inventory. You will see that you now have an axe in your inventory.|Use this to get some logs by clicking on the indicated tree.");
+            FINISHED
+        }
+
         private fun set_hint_runescape_guide() : (Player) -> Int = { player: Player ->
             if (get(player, tutorial_progress) < runescape_guide_interact_with_scenery) {
                 hint_npc(RunescapeGuide.INSTANCE.uid).invoke(player)
@@ -74,9 +93,7 @@ class tutorial(world: World, context: RuneScriptContext) : RuneScript(world, con
         }
 
         private fun set_hint_icon_survival_guide() : (Player) -> Int = { player: Player ->
-            if (get(player, tutorial_progress) < runescape_guide_interact_with_scenery) {
-                hint_npc(SurvivalExpert.INSTANCE.uid).invoke(player)
-            }
+            hint_npc(SurvivalExpert.INSTANCE.uid).invoke(player)
             FINISHED
         }
 
@@ -85,6 +102,9 @@ class tutorial(world: World, context: RuneScriptContext) : RuneScript(world, con
                 runescape_guide_start,
                 runescape_guide_designed_character -> tutorial_step_getting_started().invoke(player)
                 runescape_guide_interact_with_scenery -> tutorial_step_interact_with_scenery().invoke(player)
+                survival_guide_open_inventory -> tutorial_step_view_inventory().invoke(player)
+                survival_guide_cut_tree -> tutorial_step_cut_tree().invoke(player)
+                //survival_guide_build_fire -> tutorial_step_build_fire;
                 else -> throw RuneScriptException("invalid tutorial progress")
             }
         }
