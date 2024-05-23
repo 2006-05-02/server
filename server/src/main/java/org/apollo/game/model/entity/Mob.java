@@ -1,6 +1,6 @@
 package org.apollo.game.model.entity;
 
-import org.apollo.cache.def.NpcDefinition;
+import nulled.cache.def.NpcDefinition;
 import org.apollo.game.action.Action;
 import org.apollo.game.model.*;
 import org.apollo.game.model.area.Region;

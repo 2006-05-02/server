@@ -1,9 +1,11 @@
 package org.apollo.game.model.inter.bank;
 
-import org.apollo.cache.def.ItemDefinition;
+import nulled.cache.def.ObjDefinition;
 import org.apollo.game.model.Item;
 import org.apollo.game.model.entity.Player;
 import org.apollo.game.model.inv.Inventory;
+
+import java.util.Objects;
 
 /**
  * Contains bank-related utility methods.
@@ -30,7 +32,7 @@ public final class BankUtils {
 		Inventory bank = player.getBank();
 
 		Item item = inventory.get(slot);
-		int newId = ItemDefinition.noteToItem(item.getId());
+		int newId = ObjDefinition.Companion.noteToItem(item.getId());
 
 		if (bank.freeSlots() == 0 && !bank.contains(item.getId())) {
 			bank.forceCapacityExceeded();
@@ -89,9 +91,9 @@ public final class BankUtils {
 			amount = item.getAmount();
 		}
 
-		int newId = player.isWithdrawingNotes() ? ItemDefinition.itemToNote(item.getId()) : item.getId();
+		int newId = player.isWithdrawingNotes() ? ObjDefinition.Companion.itemToNote(item.getId()) : item.getId();
 
-		if (inventory.freeSlots() == 0 && !(inventory.contains(newId) && ItemDefinition.lookup(newId).isStackable())) {
+		if (inventory.freeSlots() == 0 && !(inventory.contains(newId) && Objects.requireNonNull(ObjDefinition.Companion.lookup(newId)).getStackable())) {
 			inventory.forceCapacityExceeded();
 			return true;
 		}

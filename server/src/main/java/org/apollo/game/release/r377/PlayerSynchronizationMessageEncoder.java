@@ -1,6 +1,6 @@
 package org.apollo.game.release.r377;
 
-import org.apollo.cache.def.EquipmentDefinition;
+import nulled.cache.def.EquipmentDefinition;
 import org.apollo.game.message.impl.PlayerSynchronizationMessage;
 import org.apollo.game.model.*;
 import org.apollo.game.model.entity.EquipmentConstants;
@@ -130,7 +130,7 @@ public final class PlayerSynchronizationMessageEncoder extends MessageEncoder<Pl
 			}
 
 			if (chest != null) {
-				EquipmentDefinition def = EquipmentDefinition.lookup(chest.getId());
+				EquipmentDefinition def = EquipmentDefinition.Companion.lookup(chest.getId());
 				if (def != null && !def.isFullBody()) {
 					playerProperties.put(DataType.SHORT, 0x100 + style[3]);
 				} else {
@@ -147,7 +147,7 @@ public final class PlayerSynchronizationMessageEncoder extends MessageEncoder<Pl
 			}
 
 			if ((helm = equipment.get(EquipmentConstants.HAT)) != null) {
-				EquipmentDefinition def = EquipmentDefinition.lookup(helm.getId());
+				EquipmentDefinition def = EquipmentDefinition.Companion.lookup(helm.getId());
 				if (def != null && !def.isFullHat() && !def.isFullMask()) {
 					playerProperties.put(DataType.SHORT, 0x100 + style[0]);
 				} else {
@@ -171,7 +171,7 @@ public final class PlayerSynchronizationMessageEncoder extends MessageEncoder<Pl
 
 			EquipmentDefinition def = null;
 			if (helm != null) {
-				def = EquipmentDefinition.lookup(helm.getId());
+				def = EquipmentDefinition.Companion.lookup(helm.getId());
 			}
 			if (def != null && (def.isFullMask()) || appearance.getGender() == Gender.FEMALE) {
 				playerProperties.put(DataType.BYTE, 0);

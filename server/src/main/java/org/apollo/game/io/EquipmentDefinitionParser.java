@@ -1,6 +1,6 @@
 package org.apollo.game.io;
 
-import org.apollo.cache.def.EquipmentDefinition;
+import nulled.cache.def.EquipmentDefinition;
 
 import java.io.*;
 
@@ -70,7 +70,7 @@ public final class EquipmentDefinitionParser implements Runnable {
 				}
 			}
 
-			EquipmentDefinition.init(definitions);
+			EquipmentDefinition.Companion.init(definitions);
 		} catch (IOException e) {
 			throw new UncheckedIOException("Error parsing EquipmentDefinitions.", e);
 		}

@@ -1,6 +1,6 @@
 package org.apollo.game.plugin.kotlin.message.action.obj
 
-import org.apollo.cache.def.ObjectDefinition
+import nulled.cache.def.LocDefinition
 import org.apollo.game.message.handler.MessageHandler
 import org.apollo.game.message.impl.ObjectActionMessage
 import org.apollo.game.model.World
@@ -77,9 +77,10 @@ class ObjectAction<T : InteractiveObject?>( // TODO split into two classes, one 
             return object : MessageHandler<ObjectActionMessage>(world) {
 
                 override fun handle(player: Player, message: ObjectActionMessage) {
-                    val def = ObjectDefinition.lookup(message.id)
-                    val option = def.menuActions[message.option]
-
+                    val def = LocDefinition.lookup(message.id)
+                    val option = def?.menuActions?.get(message.option)
+                    option ?: println("Unhandled option '$option'")
+                    option ?: return
                     val target = world.regionRepository
                         .fromPosition(message.position)
                         .getEntities<GameObject>(message.position, EntityType.DYNAMIC_OBJECT, EntityType.STATIC_OBJECT)

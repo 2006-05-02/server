@@ -51,21 +51,23 @@ abstract class RuneScript(var world: World, var context: RuneScriptContext) {
 
     fun on(triggerType: ServerTriggerType, vararg subjects: String, handler: (Player) -> Int?) {
         for (subject in subjects) {
+            registrations += 1
             on(triggerType, subject, handler)
         }
     }
 
     fun on(triggerType: ServerTriggerType, subject: String, handler: (Player) -> Int?) {
-        println("register $triggerType $subject")
+        registrations += 1
         EventRegistry.registerEvent(triggerType, subject, handler)
     }
 
     fun on(triggerType: ServerTriggerType, subject: Int, handler: (Player) -> Int?) {
-        println("register $triggerType $subject")
+        registrations += 1
         EventRegistry.registerEvent(triggerType, subject.toString(), handler)
     }
 
     companion object {
+        var registrations = 0
         const val GLOBAL = "_"
 
         var splitPages = -1

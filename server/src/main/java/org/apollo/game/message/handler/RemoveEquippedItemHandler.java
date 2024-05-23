@@ -34,7 +34,7 @@ public final class RemoveEquippedItemHandler extends MessageHandler<ItemActionMe
 			Item item = equipment.get(slot);
 			int id = item.getId();
 
-			if (inventory.freeSlots() == 0 && !item.getDefinition().isStackable()) {
+			if (inventory.freeSlots() == 0 && !item.getDefinition().getStackable()) {
 				inventory.forceCapacityExceeded();
 				message.terminate();
 				return;

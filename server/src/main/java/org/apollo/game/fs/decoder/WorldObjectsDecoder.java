@@ -1,9 +1,9 @@
 package org.apollo.game.fs.decoder;
 
-import nulled.cache.IndexedFileSystem;
-import org.apollo.cache.map.MapIndex;
-import org.apollo.cache.map.MapObject;
-import org.apollo.cache.map.MapObjectsDecoder;
+import nulled.cache.fs.IndexedFileSystem;
+import nulled.cache.map.MapIndex;
+import nulled.cache.map.MapObject;
+import nulled.cache.map.MapObjectsDecoder;
 import org.apollo.game.model.Position;
 import org.apollo.game.model.World;
 import org.apollo.game.model.area.Region;
@@ -52,11 +52,11 @@ public final class WorldObjectsDecoder implements Runnable {
 	 */
 	@Override
 	public void run() {
-		Map<Integer, MapIndex> mapIndices = MapIndex.getIndices();
+		Map<Integer, MapIndex> mapIndices = MapIndex.Companion.getIndices();
 
 		try {
 			for (MapIndex index : mapIndices.values()) {
-				MapObjectsDecoder decoder = MapObjectsDecoder.create(fs, index);
+				MapObjectsDecoder decoder = MapObjectsDecoder.Companion.create(fs, index);
 				List<MapObject> objects = decoder.decode();
 
 				int mapX = index.getX(), mapY = index.getY();

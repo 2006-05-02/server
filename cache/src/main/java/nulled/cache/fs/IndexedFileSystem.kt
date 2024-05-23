@@ -1,10 +1,12 @@
-package nulled.cache
+package nulled.cache.fs
 
 import com.google.common.base.Preconditions
-import nulled.cache.Index.Companion.decode
+import nulled.cache.util.FileSystemConstants
+import nulled.cache.index.Index.Companion.decode
 import nulled.cache.archive.Archive
 import nulled.cache.archive.Archive.Companion.decode
-import org.apollo.cache.FileSystemConstants
+import nulled.cache.index.Index
+import nulled.cache.util.FileDescriptor
 import java.io.Closeable
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -19,7 +21,7 @@ class IndexedFileSystem(val base: Path, val readOnly: Boolean = false) : Closeab
     private val cache: HashMap<FileDescriptor, Archive> = HashMap(FileSystemConstants.ARCHIVE_COUNT)
     private val indices = arrayOfNulls<RandomAccessFile>(256)
     private var crcTable: ByteBuffer? = null
-    private lateinit var crcs: IntArray
+    private var crcs: IntArray? = null
     private var data: RandomAccessFile? = null
 
     init {
@@ -32,7 +34,7 @@ class IndexedFileSystem(val base: Path, val readOnly: Boolean = false) : Closeab
             crcs = IntArray((buffer.remaining() / Integer.BYTES) - 1)
             Arrays.setAll(crcs) { crc: Int -> buffer.getInt() }
         }
-        return crcs
+        return crcs!!
     }
 
     fun getArchive(type: Int, file: Int): Archive {

@@ -1,7 +1,7 @@
 package org.apollo.game.fs.decoder;
 
-import nulled.cache.IndexedFileSystem;
-import org.apollo.cache.map.*;
+import nulled.cache.fs.IndexedFileSystem;
+import nulled.cache.map.*;
 import org.apollo.game.model.Position;
 import org.apollo.game.model.area.collision.CollisionManager;
 
@@ -52,11 +52,11 @@ public final class WorldMapDecoder implements Runnable {
 	 */
 	@Override
 	public void run() {
-		Map<Integer, MapIndex> mapIndices = MapIndex.getIndices();
+		Map<Integer, MapIndex> mapIndices = MapIndex.Companion.getIndices();
 
 		try {
 			for (MapIndex index : mapIndices.values()) {
-				MapFileDecoder decoder = MapFileDecoder.create(fs, index);
+				MapFileDecoder decoder = MapFileDecoder.Companion.create(fs, index);
 				MapFile mapFile = decoder.decode();
 				MapPlane[] mapPlanes = mapFile.getPlanes();
 

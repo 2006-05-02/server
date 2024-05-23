@@ -1,19 +1,9 @@
 package org.apollo.game.plugin;
 
-import io.github.classgraph.ClassGraph;
-import io.github.classgraph.ClassInfo;
-import io.github.classgraph.ClassInfoList;
-import io.github.classgraph.ScanResult;
-import kotlin.script.experimental.jvmhost.BasicJvmScriptingHost;
-import nulled.runescript.RuneScript;
 import nulled.runescript.ScriptManager;
 import org.apollo.game.model.World;
 import org.apollo.game.plugin.kotlin.KotlinPluginScript;
 
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.logging.Logger;
 
 public class RuneScriptEnvironment implements PluginEnvironment {

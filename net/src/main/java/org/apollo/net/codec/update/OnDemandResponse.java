@@ -1,7 +1,7 @@
 package org.apollo.net.codec.update;
 
 import io.netty.buffer.ByteBuf;
-import nulled.cache.FileDescriptor;
+import nulled.cache.util.FileDescriptor;
 
 /**
  * Represents a single 'on-demand' response.

@@ -1,6 +1,6 @@
 package org.apollo.game.message.handler;
 
-import org.apollo.cache.def.ObjectDefinition;
+import nulled.cache.def.LocDefinition;
 import org.apollo.game.message.impl.ItemOnObjectMessage;
 import org.apollo.game.model.Item;
 import org.apollo.game.model.Position;
@@ -53,7 +53,7 @@ public final class ItemOnObjectVerificationHandler extends MessageHandler<ItemOn
 		}
 
 		int objectId = message.getObjectId();
-		if (objectId < 0 || objectId >= ObjectDefinition.count()) {
+		if (objectId < 0 || objectId >= LocDefinition.Companion.count()) {
 			message.terminate();
 			return;
 		}

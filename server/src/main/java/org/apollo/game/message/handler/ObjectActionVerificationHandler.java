@@ -1,6 +1,6 @@
 package org.apollo.game.message.handler;
 
-import org.apollo.cache.def.ObjectDefinition;
+import nulled.cache.def.LocDefinition;
 import org.apollo.game.message.impl.ObjectActionMessage;
 import org.apollo.game.model.Position;
 import org.apollo.game.model.World;
@@ -10,6 +10,7 @@ import org.apollo.game.model.entity.Player;
 import org.apollo.game.model.entity.obj.GameObject;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -42,7 +43,7 @@ public final class ObjectActionVerificationHandler extends MessageHandler<Object
 	@Override
 	public void handle(Player player, ObjectActionMessage message) {
 		int id = message.getId();
-		if (id < 0 || id >= ObjectDefinition.count()) {
+		if (id < 0 || id >= LocDefinition.Companion.count()) {
 			message.terminate();
 			return;
 		}
@@ -56,8 +57,9 @@ public final class ObjectActionVerificationHandler extends MessageHandler<Object
 			return;
 		}
 
-		ObjectDefinition definition = ObjectDefinition.lookup(id);
-		if (message.getOption() >= definition.getMenuActions().length) {
+		LocDefinition definition = LocDefinition.Companion.lookup(id);
+        assert definition != null;
+        if (message.getOption() >= Objects.requireNonNull(definition.getMenuActions()).length) {
 			message.terminate();
 			return;
 		}

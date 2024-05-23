@@ -1,10 +1,9 @@
 package org.apollo.game.service;
 
-import nulled.cache.IndexedFileSystem;
+import nulled.cache.fs.IndexedFileSystem;
 import org.apollo.Service;
 import org.apollo.net.update.*;
 
-import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;

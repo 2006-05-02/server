@@ -1,6 +1,6 @@
 package org.apollo.net.update.resource;
 
-import nulled.cache.IndexedFileSystem;
+import nulled.cache.fs.IndexedFileSystem;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

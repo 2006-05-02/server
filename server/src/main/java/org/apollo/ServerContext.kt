@@ -1,6 +1,6 @@
 package org.apollo
 
-import nulled.cache.IndexedFileSystem
+import nulled.cache.fs.IndexedFileSystem
 import org.apollo.game.service.GameService
 import org.apollo.game.service.LoginService
 import org.apollo.game.service.UpdateService

@@ -2,7 +2,7 @@ package org.apollo.game.model;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
-import org.apollo.cache.def.ItemDefinition;
+import nulled.cache.def.ObjDefinition;
 
 /**
  * Represents a single item.
@@ -19,7 +19,7 @@ public final class Item {
 	/**
 	 * The item definition.
 	 */
-	private final ItemDefinition definition;
+	private final ObjDefinition definition;
 
 	/**
 	 * The item's id.
@@ -46,7 +46,7 @@ public final class Item {
 		Preconditions.checkArgument(amount >= 0, "Amount cannot be negative.");
 		this.id = id;
 		this.amount = amount;
-		definition = ItemDefinition.lookup(id);
+		definition = ObjDefinition.Companion.lookup(id);
 	}
 
 	@Override
@@ -69,11 +69,11 @@ public final class Item {
 	}
 
 	/**
-	 * Gets the {@link ItemDefinition} that describes this item.
+	 * Gets the {@link ObjDefinition} that describes this item.
 	 *
 	 * @return The definition.
 	 */
-	public ItemDefinition getDefinition() {
+	public ObjDefinition getDefinition() {
 		return definition;
 	}
 

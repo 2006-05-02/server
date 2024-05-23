@@ -5,7 +5,8 @@ import io.netty.channel.ChannelInitializer
 import io.netty.channel.EventLoopGroup
 import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.nio.NioServerSocketChannel
-import nulled.cache.IndexedFileSystem
+import nulled.cache.DefinitionManager
+import nulled.cache.fs.IndexedFileSystem
 import nulled.scripts.tutorial.data.TutorialConstants
 import org.apollo.ServerContext
 import org.apollo.ServiceManager
@@ -13,7 +14,6 @@ import org.apollo.game.model.World
 import org.apollo.game.model.entity.Npc
 import org.apollo.game.plugin.RuneScriptContext
 import org.apollo.game.plugin.PluginManager
-import org.apollo.game.plugin.api.Definitions
 import org.apollo.game.release.r377.Release377
 import org.apollo.game.session.ApolloHandler
 import org.apollo.net.HttpChannelInitializer
@@ -84,7 +84,7 @@ object Main {
 
     fun spawnNPCs(world: World) {
         for ((id, name, position, facing, animation, graphic) in Spawns.list) {
-            val definition = requireNotNull(id?.let(Definitions::npc) ?: Definitions.npc(name)) {
+            val definition = requireNotNull(id?.let(DefinitionManager::npc) ?: DefinitionManager.npc(name)) {
                 "Could not find an Npc named $name to spawn."
             }
 

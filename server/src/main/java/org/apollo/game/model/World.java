@@ -1,12 +1,12 @@
 package org.apollo.game.model;
 
 import com.google.common.base.Preconditions;
-import nulled.cache.IndexedFileSystem;
+import nulled.cache.fs.IndexedFileSystem;
 import org.apollo.Service;
-import org.apollo.cache.decoder.ItemDefinitionDecoder;
-import org.apollo.cache.decoder.NpcDefinitionDecoder;
-import org.apollo.cache.decoder.ObjectDefinitionDecoder;
-import org.apollo.cache.map.MapIndexDecoder;
+import nulled.cache.decoder.ObjDefinitionDecoder;
+import nulled.cache.decoder.NpcDefinitionDecoder;
+import nulled.cache.decoder.LocDefinitionDecoder;
+import nulled.cache.map.MapIndexDecoder;
 import org.apollo.game.command.CommandDispatcher;
 import org.apollo.game.fs.decoder.SynchronousDecoder;
 import org.apollo.game.fs.decoder.WorldMapDecoder;
@@ -214,8 +214,8 @@ public final class World {
 
 		SynchronousDecoder firstStageDecoder = new SynchronousDecoder(
 			new NpcDefinitionDecoder(fs),
-			new ItemDefinitionDecoder(fs),
-			new ObjectDefinitionDecoder(fs),
+			new ObjDefinitionDecoder(fs),
+			new LocDefinitionDecoder(fs),
 			new MapIndexDecoder(fs),
 			EquipmentDefinitionParser.fromFile("data/equipment-" + 377 + ".dat")
 		);

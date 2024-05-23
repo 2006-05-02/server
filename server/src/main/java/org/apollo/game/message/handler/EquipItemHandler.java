@@ -1,6 +1,6 @@
 package org.apollo.game.message.handler;
 
-import org.apollo.cache.def.EquipmentDefinition;
+import nulled.cache.def.EquipmentDefinition;
 import org.apollo.game.message.impl.ItemOptionMessage;
 import org.apollo.game.model.Item;
 import org.apollo.game.model.World;
@@ -49,7 +49,7 @@ public final class EquipItemHandler extends MessageHandler<ItemOptionMessage> {
 		Item equipping = inventory.get(inventorySlot);
 		int equippingId = equipping.getId();
 
-		EquipmentDefinition definition = EquipmentDefinition.lookup(equippingId);
+		EquipmentDefinition definition = EquipmentDefinition.Companion.lookup(equippingId);
 
 		if (definition == null) {
 			return;
@@ -70,7 +70,7 @@ public final class EquipItemHandler extends MessageHandler<ItemOptionMessage> {
 
 		int equipmentSlot = definition.getSlot();
 
-		if (equipmentSlot == SHIELD && weapon != null && EquipmentDefinition.lookup(weapon.getId()).isTwoHanded()) {
+		if (equipmentSlot == SHIELD && weapon != null && EquipmentDefinition.Companion.lookup(weapon.getId()).isTwoHanded()) {
 			equipment.set(SHIELD, inventory.reset(inventorySlot));
 			inventory.add(equipment.reset(WEAPON));
 			return;
@@ -78,7 +78,7 @@ public final class EquipItemHandler extends MessageHandler<ItemOptionMessage> {
 
 		Item current = equipment.get(equipmentSlot);
 
-		if (current != null && current.getId() == equippingId && current.getDefinition().isStackable()) {
+		if (current != null && current.getId() == equippingId && current.getDefinition().getStackable()) {
 			long total = (long) current.getAmount() + equipping.getAmount();
 
 			if (total <= Integer.MAX_VALUE) {

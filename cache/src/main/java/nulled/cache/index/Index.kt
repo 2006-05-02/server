@@ -1,7 +1,7 @@
-package nulled.cache
+package nulled.cache.index
 
 import com.google.common.base.Preconditions
-import org.apollo.cache.FileSystemConstants
+import nulled.cache.util.FileSystemConstants
 
 class Index(val size: Int, val block: Int) {
     companion object {

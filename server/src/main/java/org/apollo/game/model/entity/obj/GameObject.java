@@ -2,7 +2,7 @@ package org.apollo.game.model.entity.obj;
 
 import com.google.common.base.MoreObjects;
 import nulled.runescript.data.NextLocStage;
-import org.apollo.cache.def.ObjectDefinition;
+import nulled.cache.def.LocDefinition;
 import org.apollo.game.model.Direction;
 import org.apollo.game.model.Position;
 import org.apollo.game.model.World;
@@ -58,8 +58,8 @@ public abstract class GameObject extends Entity implements GroupableEntity {
 	 *
 	 * @return The object's definition.
 	 */
-	public ObjectDefinition getDefinition() {
-		return ObjectDefinition.lookup(getType());
+	public LocDefinition getDefinition() {
+		return LocDefinition.Companion.lookup(getType());
 	}
 
 	/**

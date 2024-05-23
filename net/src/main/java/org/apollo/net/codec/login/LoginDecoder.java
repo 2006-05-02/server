@@ -11,7 +11,7 @@ import java.security.SecureRandom;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.apollo.cache.FileSystemConstants;
+import nulled.cache.util.FileSystemConstants;
 import org.apollo.net.NetworkConstants;
 import org.apollo.util.BufferUtil;
 import org.apollo.util.StatefulFrameDecoder;

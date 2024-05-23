@@ -1,10 +1,10 @@
 package org.apollo.plugins.spawn
 
+import nulled.cache.DefinitionManager
 import org.apollo.game.model.World
 import org.apollo.game.model.entity.Npc
 import org.apollo.game.plugin.KotlinPlugin
 import org.apollo.game.plugin.RuneScriptContext
-import org.apollo.game.plugin.api.Definitions
 import org.apollo.plugins.spawn.npcs.RunescapeGuide
 import org.apollo.plugins.spawn.npcs.SurvivalExpert
 
@@ -14,7 +14,7 @@ class SpawnPlugin(world: World, context: RuneScriptContext) : KotlinPlugin(
 ) {
     override fun start() = { world: World ->
         for ((id, name, position, facing, animation, graphic) in Spawns.list) {
-            val definition = requireNotNull(id?.let(Definitions::npc) ?: Definitions.npc(name)) {
+            val definition = requireNotNull(id?.let(DefinitionManager::npc) ?: DefinitionManager.npc(name)) {
                 "Could not find an Npc named $name to spawn."
             }
 

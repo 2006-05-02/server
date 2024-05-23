@@ -1,6 +1,6 @@
 package org.apollo.game.message.handler;
 
-import org.apollo.cache.def.NpcDefinition;
+import nulled.cache.def.NpcDefinition;
 import org.apollo.game.message.impl.NpcActionMessage;
 import org.apollo.game.model.World;
 import org.apollo.game.model.entity.MobRepository;

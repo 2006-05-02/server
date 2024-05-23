@@ -1,7 +1,7 @@
 package org.apollo.game.model.inv;
 
 import com.google.common.base.Preconditions;
-import org.apollo.cache.def.ItemDefinition;
+import nulled.cache.def.ObjDefinition;
 import org.apollo.game.model.Item;
 
 import java.util.ArrayList;
@@ -344,7 +344,7 @@ public final class Inventory {
 	 * @return The number of matching items, or {@code 0} if none were found.
 	 */
 	public int getAmount(int id) {
-		if (isStackable(ItemDefinition.lookup(id))) {
+		if (isStackable(ObjDefinition.Companion.lookup(id))) {
 			int slot = slotOf(id);
 			return slot == -1 ? 0 : items[slot].getAmount();
 		}
@@ -374,16 +374,16 @@ public final class Inventory {
 	}
 
 	/**
-	 * Checks if the item with the specified {@link ItemDefinition} should be stacked.
+	 * Checks if the item with the specified {@link ObjDefinition} should be stacked.
 	 *
 	 * @param definition The item definition.
 	 * @return {@code true} if the item should be stacked, {@code false} otherwise.
 	 */
-	private boolean isStackable(ItemDefinition definition) {
+	private boolean isStackable(ObjDefinition definition) {
 		if (mode == StackMode.STACK_ALWAYS) {
 			return true;
 		} else if (mode == StackMode.STACK_STACKABLE_ITEMS) {
-			return definition.isStackable();
+			return definition.getStackable();
 		}
 
 		return false;
@@ -459,7 +459,7 @@ public final class Inventory {
 	 * @return The amount that was removed.
 	 */
 	public int remove(int id, int amount) {
-		ItemDefinition def = ItemDefinition.lookup(id);
+		ObjDefinition def = ObjDefinition.Companion.lookup(id);
 		boolean stackable = isStackable(def);
 
 		if (stackable) {

@@ -4,7 +4,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
 import com.google.common.collect.Multimaps;
-import org.apollo.cache.def.ObjectDefinition;
+import nulled.cache.def.LocDefinition;
 import org.apollo.game.model.Direction;
 import org.apollo.game.model.Position;
 import org.apollo.game.model.entity.obj.GameObject;
@@ -186,7 +186,7 @@ public final class CollisionUpdate {
 		 * @param object The object to update collision flags for.
 		 */
 		public void object(GameObject object) {
-			ObjectDefinition definition = object.getDefinition();
+			LocDefinition definition = object.getDefinition();
 			Position position = object.getPosition();
 			int type = object.getShape();
 
@@ -195,11 +195,11 @@ public final class CollisionUpdate {
 			}
 
 			int x = position.getX(), y = position.getY(), height = position.getHeight();
-			boolean impenetrable = definition.isImpenetrable();
+			boolean impenetrable = definition.getBlockrange();
 			int orientation = object.getAngle();
 
 			if (type == FLOOR_DECORATION.getValue()) {
-				if (definition.isInteractive() && definition.isSolid()) {
+				if (definition.getActive() && definition.getBlockwalk()) {
 					tile(new Position(x, y, height), impenetrable, Direction.NESW);
 				}
 			} else if (type >= DIAGONAL_WALL.getValue() && type < FLOOR_DECORATION.getValue()) {
@@ -230,22 +230,22 @@ public final class CollisionUpdate {
 	}
 
 	/**
-	 * Returns whether or not an object with the specified {@link ObjectDefinition} and {@code type} should result in
+	 * Returns whether or not an object with the specified {@link LocDefinition} and {@code type} should result in
 	 * the tile(s) it is located on being blocked.
 	 *
-	 * @param definition The {@link ObjectDefinition} of the object.
+	 * @param definition The {@link LocDefinition} of the object.
 	 * @param type The type of the object.
 	 * @return {@code true} iff the tile(s) the object is on should be blocked.
 	 */
-	private static boolean unwalkable(ObjectDefinition definition, int type) {
-		boolean isSolidFloorDecoration = type == FLOOR_DECORATION.getValue() && definition.isInteractive();
+	private static boolean unwalkable(LocDefinition definition, int type) {
+		boolean isSolidFloorDecoration = type == FLOOR_DECORATION.getValue() && definition.getActive();
 		boolean isRoof = type > DIAGONAL_INTERACTABLE.getValue() && type < FLOOR_DECORATION.getValue();
 
 		boolean isWall = type >= LENGTHWISE_WALL.getValue() && type <= RECTANGULAR_CORNER.getValue() ||
 			type == DIAGONAL_WALL.getValue();
 
 		boolean isSolidInteractable = (type == DIAGONAL_INTERACTABLE.getValue() ||
-			type == INTERACTABLE.getValue()) && definition.isSolid();
+			type == INTERACTABLE.getValue()) && definition.getBlockwalk();
 
 		return isWall || isRoof || isSolidInteractable || isSolidFloorDecoration;
 	}

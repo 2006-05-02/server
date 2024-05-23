@@ -2,7 +2,8 @@ package org.apollo.game.model.entity;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
-import org.apollo.cache.def.NpcDefinition;
+import nulled.cache.DefinitionManager;
+import nulled.cache.def.NpcDefinition;
 import org.apollo.game.model.Position;
 import org.apollo.game.model.World;
 import org.apollo.game.sync.block.SynchronizationBlock;
@@ -29,7 +30,7 @@ public final class Npc extends Mob {
 	 * @param position The position.
 	 */
 	public Npc(World world, int id, Position position) {
-		this(world, position, NpcDefinition.lookup(id), null);
+		this(world, position, DefinitionManager.INSTANCE.npc(id), null);
 	}
 
 	/**
@@ -115,9 +116,9 @@ public final class Npc extends Mob {
 	 * @param id The id.
 	 */
 	public void transform(int id) {
-		Preconditions.checkElementIndex(id, NpcDefinition.count(), "Id to transform to is out of bounds.");
+		Preconditions.checkElementIndex(id, NpcDefinition.Companion.count(), "Id to transform to is out of bounds.");
 
-		definition = Optional.of(NpcDefinition.lookup(id));
+		definition = Optional.ofNullable(NpcDefinition.Companion.lookup(id));
 		blockSet.add(SynchronizationBlock.createTransformBlock(id));
 	}
 

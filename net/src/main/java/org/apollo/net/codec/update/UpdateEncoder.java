@@ -3,7 +3,7 @@ package org.apollo.net.codec.update;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageEncoder;
-import nulled.cache.FileDescriptor;
+import nulled.cache.util.FileDescriptor;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package org.apollo.game.plugin;
 
+import nulled.runescript.RuneScript;
 import org.apollo.game.io.PluginMetaDataParser;
 import org.apollo.game.model.World;
 import org.xml.sax.SAXException;
@@ -139,6 +140,6 @@ public final class PluginManager {
 		PluginEnvironment env = new RuneScriptEnvironment(world);
 		env.setContext(context);
 		env.load();
+		System.out.println("Registered " + RuneScript.Companion.getRegistrations() + " RuneScript callbacks");
 	}
-
 }

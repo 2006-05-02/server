@@ -1,6 +1,4 @@
-package nulled.cache
-
-import org.apollo.cache.FileSystemConstants
+package nulled.cache.util
 
 class FileDescriptor(val type: Int, val file: Int) {
     override fun equals(other: Any?): Boolean {
