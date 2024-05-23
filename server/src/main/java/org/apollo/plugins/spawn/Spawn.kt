@@ -1,15 +1,19 @@
 package org.apollo.plugins.spawn
 
+import nulled.cache.DefinitionManager
+import nulled.runescript.RuneScriptException
 import org.apollo.game.model.Animation
 import org.apollo.game.model.Direction
 import org.apollo.game.model.Graphic
 import org.apollo.game.model.Position
 
 fun spawnNpc(name: String, x: Int, y: Int, z: Int = 0, id: Int? = null, facing: Direction = Direction.NORTH) {
+    DefinitionManager.npc(name) ?: throw RuneScriptException("Invalid Npc name")
     Spawns.list += Spawn(id, name, Position(x, y, z), facing)
 }
 
 fun spawnNpc(name: String, position: Position, id: Int? = null, facing: Direction = Direction.NORTH) {
+    DefinitionManager.npc(name) ?: throw RuneScriptException("Invalid Npc name")
     Spawns.list += Spawn(id, name, position, facing)
 }
 

@@ -28,6 +28,7 @@ dependencies {
         implementation(scrypt)
         implementation(netty.all)
         implementation(guava)
+        implementation(logback.classic)
     }
 
     testImplementation(Kotlin.test)
@@ -35,6 +36,17 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.register<JavaExec>("evaluateScripts") {
+    description = "Evaluates RuneScript objects for valid data"
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("nulled.RuneScriptEval")
+    workingDir = file("../")
+}
+
+tasks.named("build") {
+    finalizedBy(tasks.named("evaluateScripts"))
 }
 
 kotlin {

@@ -39,3 +39,5 @@ scrypt = "com.lambdaworks:scrypt:1.4.0"
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 
 commons-compress = "org.apache.commons:commons-compress:1.26.1"
+
+logback-classic = "ch.qos.logback:logback-classic:1.5.6"

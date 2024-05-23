@@ -2,6 +2,7 @@ package nulled.runescript
 
 import CloseDialogueListener
 import lostcity.engine.script.ServerTriggerType
+import nulled.cache.DefinitionManager
 import nulled.runescript.data.Interface.doubleobjbox
 import nulled.runescript.data.Interface.doubleobjbox_com_0
 import nulled.runescript.data.Interface.doubleobjbox_com_1
@@ -52,18 +53,44 @@ abstract class RuneScript(var world: World, var context: RuneScriptContext) {
     fun on(triggerType: ServerTriggerType, vararg subjects: String, handler: (Player) -> Int?) {
         for (subject in subjects) {
             registrations += 1
+            verify(triggerType, subject)
             on(triggerType, subject, handler)
         }
     }
 
     fun on(triggerType: ServerTriggerType, subject: String, handler: (Player) -> Int?) {
         registrations += 1
+        verify(triggerType, subject)
         EventRegistry.registerEvent(triggerType, subject, handler)
     }
 
     fun on(triggerType: ServerTriggerType, subject: Int, handler: (Player) -> Int?) {
         registrations += 1
+        verify(triggerType, "$subject")
         EventRegistry.registerEvent(triggerType, subject.toString(), handler)
+    }
+
+    fun verify(triggerType: ServerTriggerType, subject: String) {
+        if (subject == GLOBAL)
+            return
+
+        when (triggerType) {
+            ServerTriggerType.OPNPC1,
+            ServerTriggerType.OPNPC2,
+            ServerTriggerType.OPNPC3,
+            ServerTriggerType.OPNPC4,
+            ServerTriggerType.OPNPC5 -> {
+                DefinitionManager.npc(subject) ?: throw RuneScriptException("Invalid Npc")
+            }
+            ServerTriggerType.OPLOC1,
+            ServerTriggerType.OPLOC2,
+            ServerTriggerType.OPLOC3,
+            ServerTriggerType.OPLOC4,
+            ServerTriggerType.OPLOC5 -> {
+                DefinitionManager.loc(subject) ?: throw RuneScriptException("Invalid Loc")
+            }
+            else -> {}
+        }
     }
 
     companion object {
