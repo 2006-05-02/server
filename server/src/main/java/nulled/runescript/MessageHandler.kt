@@ -20,23 +20,23 @@ object MessageHandler {
             when (message.option) {
                 1 -> {
                     triggerEvent(player, ServerTriggerType.OPNPC1, GLOBAL)
-                    triggerEvent(player, ServerTriggerType.OPNPC1, formatNPCName(npc.definition.name))
+                    triggerEvent(player, ServerTriggerType.OPNPC1, formatNPCName(npc.definition.name!!))
                 }
                 2 -> {
                     triggerEvent(player, ServerTriggerType.OPNPC2, GLOBAL)
-                    triggerEvent(player, ServerTriggerType.OPNPC2, formatNPCName(npc.definition.name))
+                    triggerEvent(player, ServerTriggerType.OPNPC2, formatNPCName(npc.definition.name!!))
                 }
                 3 -> {
                     triggerEvent(player, ServerTriggerType.OPNPC3, GLOBAL)
-                    triggerEvent(player, ServerTriggerType.OPNPC3, formatNPCName(npc.definition.name))
+                    triggerEvent(player, ServerTriggerType.OPNPC3, formatNPCName(npc.definition.name!!))
                 }
                 4 -> {
                     triggerEvent(player, ServerTriggerType.OPNPC4, GLOBAL)
-                    triggerEvent(player, ServerTriggerType.OPNPC4, formatNPCName(npc.definition.name))
+                    triggerEvent(player, ServerTriggerType.OPNPC4, formatNPCName(npc.definition.name!!))
                 }
                 5 -> {
                     triggerEvent(player, ServerTriggerType.OPNPC5, GLOBAL)
-                    triggerEvent(player, ServerTriggerType.OPNPC5, formatNPCName(npc.definition.name))
+                    triggerEvent(player, ServerTriggerType.OPNPC5, formatNPCName(npc.definition.name!!))
                 }
                 else -> return false
             }
