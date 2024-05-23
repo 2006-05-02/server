@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Optional;
 
-import org.apollo.cache.IndexedFileSystem;
+import nulled.cache.IndexedFileSystem;
 import org.apollo.net.codec.jaggrab.JagGrabRequest;
 import org.apollo.net.codec.jaggrab.JagGrabResponse;
 import org.apollo.net.update.resource.ResourceProvider;

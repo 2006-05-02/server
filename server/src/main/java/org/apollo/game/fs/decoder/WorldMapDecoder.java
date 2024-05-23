@@ -1,6 +1,6 @@
 package org.apollo.game.fs.decoder;
 
-import org.apollo.cache.IndexedFileSystem;
+import nulled.cache.IndexedFileSystem;
 import org.apollo.cache.map.*;
 import org.apollo.game.model.Position;
 import org.apollo.game.model.area.collision.CollisionManager;

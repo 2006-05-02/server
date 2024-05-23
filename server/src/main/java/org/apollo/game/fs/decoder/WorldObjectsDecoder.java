@@ -1,6 +1,6 @@
 package org.apollo.game.fs.decoder;
 
-import org.apollo.cache.IndexedFileSystem;
+import nulled.cache.IndexedFileSystem;
 import org.apollo.cache.map.MapIndex;
 import org.apollo.cache.map.MapObject;
 import org.apollo.cache.map.MapObjectsDecoder;

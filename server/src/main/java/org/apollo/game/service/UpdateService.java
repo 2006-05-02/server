@@ -1,7 +1,7 @@
 package org.apollo.game.service;
 
+import nulled.cache.IndexedFileSystem;
 import org.apollo.Service;
-import org.apollo.cache.IndexedFileSystem;
 import org.apollo.net.update.*;
 
 import java.io.FileNotFoundException;
@@ -71,7 +71,7 @@ public final class UpdateService extends Service {
 				workers.add(new OnDemandRequestWorker(dispatcher, new IndexedFileSystem(base, true)));
 				workers.add(new HttpRequestWorker(dispatcher, new IndexedFileSystem(base, true)));
 			}
-		} catch (FileNotFoundException reason) {
+		} catch (Exception reason) {
 			logger.log(Level.SEVERE, "Unable to find index or data files from the file system.", reason);
 		}
 

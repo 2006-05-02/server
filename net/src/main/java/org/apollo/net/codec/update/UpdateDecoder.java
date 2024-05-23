@@ -6,7 +6,7 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 
 import java.util.List;
 
-import org.apollo.cache.FileDescriptor;
+import nulled.cache.FileDescriptor;
 import org.apollo.net.codec.update.OnDemandRequest.Priority;
 
 /**

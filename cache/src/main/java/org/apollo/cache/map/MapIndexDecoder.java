@@ -6,10 +6,9 @@ import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apollo.cache.IndexedFileSystem;
-import org.apollo.cache.archive.Archive;
-import org.apollo.cache.archive.ArchiveEntry;
-import org.apollo.cache.map.MapIndex;
+import nulled.cache.IndexedFileSystem;
+import nulled.cache.archive.Archive;
+import nulled.cache.archive.ArchiveEntry;
 
 /**
  * Decodes {@link MapIndex}s from the {@link IndexedFileSystem}.

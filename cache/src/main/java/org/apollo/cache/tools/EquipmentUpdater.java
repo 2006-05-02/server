@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.nio.file.Paths;
 
-import org.apollo.cache.IndexedFileSystem;
+import nulled.cache.IndexedFileSystem;
 import org.apollo.cache.decoder.ItemDefinitionDecoder;
 import org.apollo.cache.def.ItemDefinition;
 import org.apollo.util.tools.EquipmentConstants;

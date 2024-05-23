@@ -6,8 +6,8 @@ import io.netty.channel.Channel;
 
 import java.io.IOException;
 
-import org.apollo.cache.FileDescriptor;
-import org.apollo.cache.IndexedFileSystem;
+import nulled.cache.FileDescriptor;
+import nulled.cache.IndexedFileSystem;
 import org.apollo.net.codec.update.OnDemandRequest;
 import org.apollo.net.codec.update.OnDemandResponse;
 

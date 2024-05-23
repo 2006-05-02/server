@@ -1,13 +1,13 @@
 package org.apollo.net.update.resource;
 
+import nulled.cache.IndexedFileSystem;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
-import org.apollo.cache.IndexedFileSystem;
 
 /**
  * A {@link ResourceProvider} which maps virtual resources (such as {@code /media}) to files in an

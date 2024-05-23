@@ -1,8 +1,8 @@
 package org.apollo.game.model;
 
 import com.google.common.base.Preconditions;
+import nulled.cache.IndexedFileSystem;
 import org.apollo.Service;
-import org.apollo.cache.IndexedFileSystem;
 import org.apollo.cache.decoder.ItemDefinitionDecoder;
 import org.apollo.cache.decoder.NpcDefinitionDecoder;
 import org.apollo.cache.decoder.ObjectDefinitionDecoder;

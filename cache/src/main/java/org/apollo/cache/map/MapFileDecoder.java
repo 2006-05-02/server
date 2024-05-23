@@ -1,6 +1,6 @@
 package org.apollo.cache.map;
 
-import org.apollo.cache.IndexedFileSystem;
+import nulled.cache.IndexedFileSystem;
 import org.apollo.util.CompressionUtil;
 
 import java.nio.ByteBuffer;

@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.ByteBuffer;
 
-import org.apollo.cache.IndexedFileSystem;
-import org.apollo.cache.archive.Archive;
+import nulled.cache.IndexedFileSystem;
+import nulled.cache.archive.Archive;
 import org.apollo.cache.def.ItemDefinition;
 import org.apollo.util.BufferUtil;
 
@@ -126,5 +126,4 @@ public final class ItemDefinitionDecoder implements Runnable {
 			}
 		}
 	}
-
 }

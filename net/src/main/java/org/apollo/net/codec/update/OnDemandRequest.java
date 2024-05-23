@@ -1,6 +1,6 @@
 package org.apollo.net.codec.update;
 
-import org.apollo.cache.FileDescriptor;
+import nulled.cache.FileDescriptor;
 
 /**
  * Represents a single 'on-demand' request.

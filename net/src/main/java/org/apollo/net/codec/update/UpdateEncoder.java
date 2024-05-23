@@ -3,10 +3,9 @@ package org.apollo.net.codec.update;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageEncoder;
+import nulled.cache.FileDescriptor;
 
 import java.util.List;
-
-import org.apollo.cache.FileDescriptor;
 
 /**
  * A {@link MessageToMessageEncoder} for the 'on-demand' protocol.
