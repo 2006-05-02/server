@@ -18,7 +18,12 @@ object DefinitionManager {
     var locDefinitions: Array<LocDefinition?>? = null
 
     fun npc(name: String): NpcDefinition? {
-        return npcDefinitions?.filterNotNull()?.firstOrNull { it.name?.lowercase(Locale.getDefault())?.replace(" ", "_") == name }
+        val results = npcDefinitions!!.filterNotNull().filter { it.name?.lowercase(Locale.getDefault())?.replace(" ", "_") == name }
+        if (results.size > 1)
+            throw RuntimeException("Multiple npc results found, use a finer definition")
+        if (results.isEmpty())
+            return null
+        return results.first()
     }
 
     fun npc(id: Int): NpcDefinition? {
@@ -26,7 +31,12 @@ object DefinitionManager {
     }
 
     fun obj(name: String) : ObjDefinition? {
-        return objDefinitions?.filterNotNull()?.firstOrNull { it.name?.lowercase(Locale.getDefault())?.replace(" ", "_") == name }
+        val results = objDefinitions!!.filterNotNull().filter { it.name?.lowercase(Locale.getDefault())?.replace(" ", "_") == name }
+        if (results.size > 1)
+            throw RuntimeException("Multiple obj results found, use a finer definition")
+        if (results.isEmpty())
+            return null
+        return results.first()
     }
 
     fun obj(id: Int) : ObjDefinition? {
